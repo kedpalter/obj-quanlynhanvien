@@ -17,13 +17,13 @@ export class NhanVien {
         let soGioLam = this.workingTime;
         let xepLoai;
         if (soGioLam >= 192) {
-            xepLoai = 'Nhân viên xuất sắc';
+            xepLoai = 'NV xuất sắc';
         } else if (soGioLam >= 176) {
-            xepLoai = 'Nhân viên giỏi';
+            xepLoai = 'NV giỏi';
         } else if (soGioLam >= 160) {
-            xepLoai = 'Nhân viên khá';
+            xepLoai = 'NV khá';
         } else {
-            xepLoai = 'Nhân viên trung bình';
+            xepLoai = 'NV trung bình';
         }
         return xepLoai;
     }
