@@ -1,19 +1,40 @@
 import { NhanVien, QuanLyNV } from "/js/NhanVien.js";
 
-let danhsachNV = new QuanLyNV();
+let danhSachNV = new QuanLyNV();
+
+window.onload = function() {
+    danhSachNV.getLocal();
+    danhSachNV.hienThiNhanVien();
+}
+
+window.editNhanVien = function(index) {
+    let nvEdit = danhSachNV.arrNhanVien[index];
+    let arrTagInput = document.querySelectorAll('.fill-input');
+    for (let tag of arrTagInput) {
+        tag.value = nvEdit[tag.id];
+    }
+    let btnCapNhat = document.querySelector('#btnCapNhat');
+    btnCapNhat.setAttribute('data-index-edit', index);
+}
 
 document.querySelector('#btnThemNV').onclick = function (e) {
     e.preventDefault();
 
     let nhanVien = new NhanVien();
-    console.log(nhanVien);
     let arrInput = document.querySelectorAll('.fill-input');
     for (let tag of arrInput) {
-        let id = tag.id;
+        let id = tag.id;    
         let value = tag.value;
         nhanVien[id] = value;
     }
+    nhanVien.totalSalary = nhanVien.calSalary();
+    nhanVien.rate = nhanVien.calRate();
 
-    danhsachNV.themNhanVien(nhanVien);
-    danhsachNV.hienThiNhanVien();
+    danhSachNV.themNhanVien(nhanVien);
+    danhSachNV.hienThiNhanVien();
+
+    //Lưu lại Local
+    danhSachNV.saveLocal();
+
 }
+

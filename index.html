@@ -188,14 +188,14 @@
 				<!-- Modal body -->
 				<div class="modal-body">
 
-					<form role="form">
+					<form role="form" id="frmThemNV">
 
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-user"></i></span>
 								</div>
-								<input type="text" name="tk" id="tknv" class="form-control input-sm fill-input"
+								<input type="text" name="tk" id="user" class="form-control input-sm fill-input"
 									placeholder="Tài khoản">
 							</div>
 
@@ -207,7 +207,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-address-book"></i></span>
 								</div>
-								<input type="name" name="name" id="name" class="form-control input-sm fill-input"
+								<input type="name" name="name" id="fullName" class="form-control input-sm fill-input"
 									placeholder="Họ và tên">
 							</div>
 							<span class="sp-thongbao" id="tbTen"></span>
@@ -241,8 +241,8 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-calendar"></i></span>
 								</div>
-								<input type="text" name="ngaylam" id="datepicker" class="form-control fill-input"
-									placeholder="Ngày làm">
+								<input type="date" name="ngaylam" class="form-control fill-input"
+									placeholder="Ngày làm" id="date">
 							</div>
 
 							<span class="sp-thongbao" id="tbNgay"></span>
@@ -253,7 +253,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-money" aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="luongCB" id="luongCB" class="form-control input-sm fill-input"
+								<input type="text" name="luongCB" id="salary" class="form-control input-sm fill-input"
 									placeholder="Lương cơ bản">
 							</div>
 							<span class="sp-thongbao" id="tbLuongCB"></span>
@@ -263,11 +263,11 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-briefcase"></i></span>
 								</div>
-								<select class="form-control fill-input" id="chucvu">
-									<option>Chọn chức vụ</option>
-									<option>Sếp</option>
-									<option>Trưởng phòng</option>
-									<option>Nhân viên</option>
+								<select class="form-control fill-input" id="position">
+									<option value="chưa chọn">Chọn chức vụ</option>
+									<option value="Giám đốc">Giám đốc</option>
+									<option value="Trưởng phòng">Trưởng phòng</option>
+									<option value="Nhân viên">Nhân viên</option>
 								</select>
 							</div>
 
@@ -279,7 +279,7 @@
 									<span class="input-group-text"><i class="fa fa-clock-o"
 											aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="gioLam" id="gioLam" class="form-control input-sm fill-input"
+								<input type="text" name="gioLam" id="workingTime" class="form-control input-sm fill-input"
 									placeholder="Giờ làm">
 							</div>
 							<span class="sp-thongbao" id="tbGiolam"></span>
@@ -290,7 +290,7 @@
 
 				<!-- Modal footer -->
 				<div class="modal-footer" id="modal-footer">
-					<button id="btnThemNV" type="button" class="btn btn-success">Thêm người dùng</button>
+					<button id="btnThemNV" type="submit" class="btn btn-success">Thêm người dùng</button>
 					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
 					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 				</div>
