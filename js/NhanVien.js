@@ -29,13 +29,13 @@ export class NhanVien {
         let soGioLam = this.workingTime;
         let xepLoai;
         if (soGioLam >= 192) {
-            xepLoai = 'NV xuất sắc';
+            xepLoai = 'Xuất sắc';
         } else if (soGioLam >= 176) {
-            xepLoai = 'NV giỏi';
+            xepLoai = 'Giỏi';
         } else if (soGioLam >= 160) {
-            xepLoai = 'NV khá';
+            xepLoai = 'Khá';
         } else {
-            xepLoai = 'NV trung bình';
+            xepLoai = 'Trung bình';
         }
         return xepLoai;
     }
@@ -47,8 +47,16 @@ export class QuanLyNV {
     themNhanVien(nhanVienMoi) {
         this.arrNhanVien.push(nhanVienMoi);
     }
-    xoaNhanVien() { }
-
+    xoaNhanVien(indexDel) {
+        this.arrNhanVien.splice(indexDel, 1);
+    }
+    capNhatNhanVien(indexUpdate, nhanVienUpdate) {
+        let nvInaArrNhanVien = this.arrNhanVien[indexUpdate]; // lấy Obj thứ indexUpdate trong arrNhanVien
+        for (let key in nvInaArrNhanVien) {
+            nvInaArrNhanVien[key] = nhanVienUpdate[key];
+        }
+        
+    }
     saveLocal() {
         let saveStr = JSON.stringify(this.arrNhanVien);
         localStorage.setItem('arrNhanVien', saveStr);
@@ -72,9 +80,9 @@ export class QuanLyNV {
                     <td>${this.arrNhanVien[indexNV].email}</td>
                     <td>${this.arrNhanVien[indexNV].date}</td>
                     <td>${this.arrNhanVien[indexNV].position}</td>
-                    <td>${this.arrNhanVien[indexNV].totalSalary}</td>
+                    <td>${this.arrNhanVien[indexNV].totalSalary.toLocaleString('vi-VN')}</td>
                     <td>${this.arrNhanVien[indexNV].rate}</td>
-                    <td><em class="fa fa-cog btn" data-toggle="modal" data-target="#myModal" onclick="editNhanVien('${indexNV}')"></td>
+                    <td><em class="fa fa-cog btn btn-edit" data-toggle="modal" data-target="#myModal" onclick="editNhanVien('${indexNV}')"></td>
             `
         }
     }

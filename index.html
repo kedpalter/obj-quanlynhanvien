@@ -195,8 +195,11 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-user"></i></span>
 								</div>
-								<input type="text" name="tk" id="user" class="form-control input-sm fill-input"
-									placeholder="Tài khoản">
+								<input type="text" name="tk" id="user" class="form-control input-sm fill-input" aria-describedby="inputGroupPrepend"
+									placeholder="Tài khoản" required>
+								<div class="invalid-feedback">
+									Please provide a valid city.
+								</div>
 							</div>
 
 							<span class="sp-thongbao" id="tbTKNV"></span>
@@ -241,8 +244,8 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-calendar"></i></span>
 								</div>
-								<input type="date" name="ngaylam" class="form-control fill-input"
-									placeholder="Ngày làm" id="date">
+								<input type="date" name="ngaylam" class="form-control fill-input" placeholder="Ngày làm"
+									id="date">
 							</div>
 
 							<span class="sp-thongbao" id="tbNgay"></span>
@@ -264,7 +267,7 @@
 									<span class="input-group-text"><i class="fa fa-briefcase"></i></span>
 								</div>
 								<select class="form-control fill-input" id="position">
-									<option value="chưa chọn">Chọn chức vụ</option>
+									<option selected disabled value="">Chọn chức vụ</option>
 									<option value="Giám đốc">Giám đốc</option>
 									<option value="Trưởng phòng">Trưởng phòng</option>
 									<option value="Nhân viên">Nhân viên</option>
@@ -279,8 +282,8 @@
 									<span class="input-group-text"><i class="fa fa-clock-o"
 											aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="gioLam" id="workingTime" class="form-control input-sm fill-input"
-									placeholder="Giờ làm">
+								<input type="text" name="gioLam" id="workingTime"
+									class="form-control input-sm fill-input" placeholder="Giờ làm">
 							</div>
 							<span class="sp-thongbao" id="tbGiolam"></span>
 						</div>
@@ -289,9 +292,12 @@
 				</div>
 
 				<!-- Modal footer -->
-				<div class="modal-footer" id="modal-footer">
-					<button id="btnThemNV" type="submit" class="btn btn-success">Thêm người dùng</button>
-					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
+				<div class="modal-footer d-flex justify-content-between" id="modal-footer">
+					<div>
+						<button id="btnThemNV" type="submit" class="btn btn-success">Thêm người dùng</button>
+						<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
+						<button id="btnXoa" type="button" class="btn btn-danger">Xóa</button>
+					</div>
 					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 				</div>
 
