@@ -1,6 +1,10 @@
 import { NhanVien, QuanLyNV } from "/js/NhanVien.js";
 
-document.querySelector('#btnThemNV').onclick = function () {
+let danhsachNV = new QuanLyNV();
+
+document.querySelector('#btnThemNV').onclick = function (e) {
+    e.preventDefault();
+
     let nhanVien = new NhanVien();
     console.log(nhanVien);
     let arrInput = document.querySelectorAll('.fill-input');
@@ -10,4 +14,6 @@ document.querySelector('#btnThemNV').onclick = function () {
         nhanVien[id] = value;
     }
 
+    danhsachNV.themNhanVien(nhanVien);
+    danhsachNV.hienThiNhanVien();
 }

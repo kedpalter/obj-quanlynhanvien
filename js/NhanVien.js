@@ -32,11 +32,15 @@ export class NhanVien {
 export class QuanLyNV {
     arrNhanVien = [];
 
+    themNhanVien(nhanVienMoi) {
+        this.arrNhanVien.push(nhanVienMoi);
+    }
+
     hienThiNhanVien() {
         let bodyTable = document.querySelector(`#tableDanhSach`);
 
         for (let indexNV in this.arrNhanVien) {
-            bodyTable.innerHTML = `
+            bodyTable.innerHTML += `
                 <tr>
                     <td>${this.arrNhanVien[indexNV].user}</td>
                     <td>${this.arrNhanVien[indexNV].fullName}</td>
