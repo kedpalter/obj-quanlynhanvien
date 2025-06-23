@@ -76,7 +76,7 @@ document.querySelector('#btnXoa').onclick = function (e) {
     danhSachNV.saveLocal();
 }
 
-document.querySelector('#btnThemNV').onsubmit = function (e) {
+document.querySelector('#frmThemNV').onsubmit = function (e) {
     console.log('Nhấn nút Thêm người dùng');
     e.preventDefault();
 
