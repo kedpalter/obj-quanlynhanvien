@@ -188,15 +188,15 @@
 				<!-- Modal body -->
 				<div class="modal-body">
 
-					<!-- <form role="form" id="frmThemNV" class="needs-validation" novalidate>
-
+					<form role="form" id="frmThemNV" class="needs-validation" novalidate>
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-user"></i></span>
 								</div>
 								<input type="text" name="tk" id="user" class="form-control input-sm fill-input"
-									aria-describedby="inputGroupPrepend" placeholder="Tài khoản" required pattern="A-Z">
+									aria-describedby="inputGroupPrepend" placeholder="Tài khoản" required
+									pattern="^[0-9]{4,6}$">
 								<div class="invalid-feedback">Vui lòng nhập tài khoản</div>
 							</div>
 
@@ -209,7 +209,7 @@
 									<span class="input-group-text"><i class="fa fa-address-book"></i></span>
 								</div>
 								<input type="name" name="name" id="fullName" class="form-control input-sm fill-input"
-									placeholder="Họ và tên" required pattern="[A-za-z]">
+									placeholder="Họ và tên" required pattern="^[A-Za-zÀ-ỹ\s]+$">
 								<div class="invalid-feedback">Vui lòng nhập Họ tên</div>
 							</div>
 							<span class="sp-thongbao" id="tbTen"></span>
@@ -221,8 +221,9 @@
 									<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 								</div>
 								<input type="email" name="email" id="email" class="form-control input-sm fill-input"
-									placeholder="Email">
-								<div class="invalid-feedback">Email không đúng</div>
+									placeholder="Email" required
+									pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$">
+								<div class="invalid-feedback">Email hợp lệ</div>
 							</div>
 
 							<span class="sp-thongbao" id="tbEmail"></span>
@@ -234,9 +235,11 @@
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
 								<input type="password" name="password" id="password"
-									class="form-control input-sm fill-input" placeholder="Mật khẩu">
+									class="form-control input-sm fill-input" placeholder="Mật khẩu" required
+									pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{6,10}$">
+								<div class="sp-thongbao invalid-feedback" id="tbMatKhau">Pass không hợp lệ</div>
 							</div>
-							<span class="sp-thongbao" id="tbMatKhau"></span>
+
 						</div>
 
 						<div class="form-group">
@@ -244,11 +247,13 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-calendar"></i></span>
 								</div>
-								<input type="date" name="ngaylam" class="form-control fill-input" placeholder="Ngày làm"
-									id="date">
+								<input type="text" name="ngaylam" class="form-control fill-input" placeholder="Ngày làm"
+									id="date" data-format-datepicker required>
+								<span class="sp-thongbao invalid-feedback" id="tbNgay">Vui lòng nhập ngày làm
+									việc</span>
 							</div>
 
-							<span class="sp-thongbao" id="tbNgay"></span>
+
 						</div>
 
 						<div class="form-group">
@@ -256,25 +261,26 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-money" aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="luongCB" id="salary" class="form-control input-sm fill-input"
-									placeholder="Lương cơ bản">
+								<input type="number" name="luongCB" id="salary" class="form-control input-sm fill-input"
+									placeholder="Lương cơ bản" required min="1000000" max="20000000">
+								<span class="sp-thongbao invalid-feedback" id="tbLuongCB">Vui lòng nhập lương</span>
 							</div>
-							<span class="sp-thongbao" id="tbLuongCB"></span>
+
 						</div>
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-briefcase"></i></span>
 								</div>
-								<select class="form-control fill-input" id="position">
+								<select class="form-control fill-input" id="position" required>
 									<option selected disabled value="">Chọn chức vụ</option>
 									<option value="Giám đốc">Giám đốc</option>
 									<option value="Trưởng phòng">Trưởng phòng</option>
 									<option value="Nhân viên">Nhân viên</option>
 								</select>
+								<span class="sp-thongbao invalid-feedback" id="tbChucVu">Vui lòng chọn chức vụ</span>
 							</div>
 
-							<span class="sp-thongbao" id="tbChucVu"></span>
 						</div>
 						<div class="form-group">
 							<div class="input-group">
@@ -282,129 +288,35 @@
 									<span class="input-group-text"><i class="fa fa-clock-o"
 											aria-hidden="true"></i></span>
 								</div>
-								<input type="text" name="gioLam" id="workingTime"
-									class="form-control input-sm fill-input" placeholder="Giờ làm">
-							</div>
-							<span class="sp-thongbao" id="tbGiolam"></span>
-						</div>
-						<div class="modal-footer d-flex justify-content-between p-0" id="modal-footer">
-							<div>
-								<button id="btnThemNV" type="submit" class="btn btn-success">Thêm người dùng</button>
-								<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
-								<button id="btnXoa" type="button" class="btn btn-danger">Xóa</button>
-							</div>
-							<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-						</div>
-					</form> -->
-
-
-					<!-- <div class="form-group">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fa fa-user"></i></span>
-								</div>
-								<input type="text" name="tk" id="user" class="form-control input-sm fill-input"
-									aria-describedby="inputGroupPrepend" placeholder="Tài khoản" required pattern="A-Z">
-								<div class="invalid-feedback">Vui lòng nhập tài khoản</div>
+								<input type="number" name="gioLam" id="workingTime"
+									class="form-control input-sm fill-input" placeholder="Giờ làm" required min="80"
+									max="200">
+								<span class="sp-thongbao invalid-feedback" id="tbGiolam">Hãy nhập số giờ làm</span>
 							</div>
 
-							<span class="sp-thongbao" id="tbTKNV"></span>
-						</div> -->
+						</div>
 
-					<form class="row g-3 needs-validation" novalidate>
-						<div class="form-group">
-							<label for="validationCustom01" class="input-group-prepend">
-								<span class="input-group-text"><i class="fa fa-user"></i></span>
-							</label>
-							<input type="text" class="form-control" id="validationCustom01" placeholder="Tài khoản"
-								required>
-							<div class="invalid-feedback">
-								Vui lòng nhập tên tài khoản
-							</div>
-						</div>
-						<!-- <div class="col-md-4">
-							<label for="validationCustom01" class="form-label">Tài khoản</label>
-							<input type="text" class="form-control" id="validationCustom01" value="" required>
-							<div class="invalid-feedback">
-								Nhập đi cha
-							</div>
-						</div> -->
-						<div class="col-md-4">
-							<label for="validationCustom02" class="form-label">Họ và tên</label>
-							<input type="text" class="form-control" id="validationCustom02" value="" required>
-							<div class="invalid-feedback">
-								Chưa nhập
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label for="inputEmail" class="form-label">Họ và tên</label>
-							<input type="email" class="form-control" id="inputEmail" value="" required>
-							<div class="invalid-feedback">
-								Chưa nhập
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label for="inputPassword" class="form-label">Họ và tên</label>
-							<input type="password" class="form-control" id="inputPassword" value="" required>
-							<div class="invalid-feedback">
-								Pass chưa chuẩn
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label for="validationCustomUsername" class="form-label">Username</label>
-							<div class="input-group has-validation">
-								<span class="input-group-text" id="inputGroupPrepend">@</span>
-								<input type="text" class="form-control" id="validationCustomUsername"
-									aria-describedby="inputGroupPrepend" required>
-								<div class="invalid-feedback">
-									Please choose a username.
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<label for="validationCustom03" class="form-label">City</label>
-							<input type="text" class="form-control" id="validationCustom03" required>
-							<div class="invalid-feedback">
-								Please provide a valid city.
-							</div>
-						</div>
-						<div class="col-md-3">
-							<label for="validationCustom04" class="form-label">State</label>
-							<select class="form-select" id="validationCustom04" required>
-								<option selected disabled value="">Choose...</option>
-								<option>...</option>
-							</select>
-							<div class="invalid-feedback">
-								Please select a valid state.
-							</div>
-						</div>
-						<div class="col-md-3">
-							<label for="validationCustom05" class="form-label">Zip</label>
-							<input type="text" class="form-control" id="validationCustom05" required>
-							<div class="invalid-feedback">
-								Please provide a valid zip.
-							</div>
-						</div>
-						<div class="col-12">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-								<label class="form-check-label" for="invalidCheck">
-									Agree to terms and conditions
-								</label>
-								<div class="invalid-feedback">
-									You must agree before submitting.
-								</div>
-							</div>
-						</div>
-						<div class="col-12">
-							<button class="btn btn-primary" type="submit">Submit form</button>
-						</div>
+
 					</form>
 				</div>
 
 				<!-- Modal footer -->
+				<div class="modal-footer d-flex justify-content-between" id="modal-footer">
+					<div class="">
+						<button id="btnThemNV" type="submit" class="btn btn-success">Thêm người dùng</button>
+						<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
+						<button id="btnXoa" type="button" class="btn btn-danger">Xóa</button>
+					</div>
 
-
+					<div class="">
+						<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+				<!-- <div class="modal-footer" id="modal-footer">
+					<button id="btnThemNV" type="button" class="btn btn-success">Thêm người dùng</button>
+					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
+					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+				</div> -->
 			</div>
 		</div>
 	</div>

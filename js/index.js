@@ -25,30 +25,8 @@ window.xoaNhanVienUI = function (indexDel) {
     // Save local
     danhSachNV.saveLocal();
 
-}
-    // ----------------------------- VALIDATION -----------------------------------
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    const ham1 = (() => {
-        'use strict'
+};
 
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const frmValid = document.querySelectorAll('.needs-validation');
-        // Loop over them and prevent submission
-        frmValid.forEach(form => {
-            console.log(form);
-            
-            form.addEventListener('submit', event => {
-                console.log('abc')
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-            }, false)
-        })
-    });
-    ham1();
 document.querySelector('#btnCapNhat').onclick = function (e) {
     let indexEdit = e.target.getAttribute('data-index-edit');
     // console.log(indexEdit);
@@ -77,10 +55,20 @@ document.querySelector('#btnXoa').onclick = function (e) {
     danhSachNV.hienThiNhanVien();
     danhSachNV.saveLocal();
 }
-
+// ---------------------------- VALIDATION ----------------------------------
+function checkValidation(form) {
+    if (!form.checkValidity()) {
+        // e.stopPropagation();
+        form.classList.add('was-validated'); // Nếu chưa hợp lệ khi bấm submit thì mới kích hoạt hiệu ứng xanh/đỏ theo Bootstrap
+        return false;
+    }
+}
+// --------------------------------------------------------------------------
 document.querySelector('#btnThemNV').onclick = function (e) {
     console.log('Nhấn nút Thêm người dùng');
     e.preventDefault();
+    if (!checkValidation(document.querySelector('#frmThemNV'))) return;
+    console.log('validation xong');
 
     let nhanVien = new NhanVien();
     let arrInput = document.querySelectorAll('.fill-input');
@@ -97,6 +85,5 @@ document.querySelector('#btnThemNV').onclick = function (e) {
 
     //Lưu lại Local
     danhSachNV.saveLocal();
-
 }
 
