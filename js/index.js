@@ -4,6 +4,7 @@ let danhSachNV = new QuanLyNV();
 
 window.onload = function () {
     danhSachNV.getLocal();
+    console.log(danhSachNV.arrNhanVien);
     danhSachNV.hienThiNhanVien();
 }
 
@@ -18,14 +19,6 @@ window.editNhanVien = function (index) {
     btnCapNhat.setAttribute('data-index-edit', index);
     document.querySelector('#btnXoa').setAttribute('data-index-edit', index);
 }
-window.xoaNhanVienUI = function (indexDel) {
-    // console.log(indexDel);
-    danhSachNV.xoaNhanVien(indexDel);
-    danhSachNV.hienThiNhanVien();
-    // Save local
-    danhSachNV.saveLocal();
-
-};
 
 document.querySelector('#btnCapNhat').onclick = function (e) {
     let indexEdit = e.target.getAttribute('data-index-edit');
@@ -54,21 +47,38 @@ document.querySelector('#btnXoa').onclick = function (e) {
     danhSachNV.xoaNhanVien(indexEdit);
     danhSachNV.hienThiNhanVien();
     danhSachNV.saveLocal();
+
+    document.querySelector('#frmThemNV').reset();
+    document.querySelector('#frmThemNV').classList.remove('was-validated');
+    $('#myModal').modal('hide');
 }
 // ---------------------------- VALIDATION ----------------------------------
 function checkValidation(form) {
     if (!form.checkValidity()) {
-        // e.stopPropagation();
         form.classList.add('was-validated'); // Nếu chưa hợp lệ khi bấm submit thì mới kích hoạt hiệu ứng xanh/đỏ theo Bootstrap
         return false;
     }
+    // Kiểm tra user
+    let newUser = document.querySelector('#user');
+    let arrNhanVien = danhSachNV.arrNhanVien;
+    for (let oldUsers of arrNhanVien) {
+        if (oldUsers.user == newUser.value) {
+            // newUser.setCustomValidity('Tài khoản đã tồn tại');
+            console.log(newUser.parentElement.querySelector('.invalid-feedback').textContent);
+            newUser.parentElement.querySelector('.invalid-feedback').innerHTML = 'Tài khoản đã tồn tại';
+            form.classList.add('was-validated');
+            console.log('Trùng');
+            return false;
+        }
+    }
+
+    // Nếu hợp lệ các pattern → return true
+    return true;
 }
 // --------------------------------------------------------------------------
 document.querySelector('#btnThemNV').onclick = function (e) {
-    console.log('Nhấn nút Thêm người dùng');
     e.preventDefault();
     if (!checkValidation(document.querySelector('#frmThemNV'))) return;
-    console.log('validation xong');
 
     let nhanVien = new NhanVien();
     let arrInput = document.querySelectorAll('.fill-input');
@@ -85,5 +95,10 @@ document.querySelector('#btnThemNV').onclick = function (e) {
 
     //Lưu lại Local
     danhSachNV.saveLocal();
+
+    //Reset lại form sau khi nhập, xóa class validated
+    document.querySelector('#frmThemNV').reset();
+    document.querySelector('#frmThemNV').classList.remove('was-validated');
+    $('#myModal').modal('hide');
 }
 
