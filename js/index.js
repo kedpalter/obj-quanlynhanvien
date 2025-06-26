@@ -4,7 +4,6 @@ let danhSachNV = new QuanLyNV();
 
 window.onload = function () {
     danhSachNV.getLocal();
-    console.log(danhSachNV.arrNhanVien);
     danhSachNV.hienThiNhanVien();
 }
 
@@ -58,19 +57,26 @@ function checkValidation(form) {
         form.classList.add('was-validated'); // Nếu chưa hợp lệ khi bấm submit thì mới kích hoạt hiệu ứng xanh/đỏ theo Bootstrap
         return false;
     }
-    // Kiểm tra user
+    // Check User
     let newUser = document.querySelector('#user');
     let arrNhanVien = danhSachNV.arrNhanVien;
+    let userFeedback = newUser.parentElement.querySelector('.invalid-feedback');
+    newUser.setCustomValidity('');
+    userFeedback.innerHTML = 'Vui lòng nhập tài khoản';
+
+    // let existUser = false;
     for (let oldUsers of arrNhanVien) {
         if (oldUsers.user == newUser.value) {
-            // newUser.setCustomValidity('Tài khoản đã tồn tại');
-            console.log(newUser.parentElement.querySelector('.invalid-feedback').textContent);
-            newUser.parentElement.querySelector('.invalid-feedback').innerHTML = 'Tài khoản đã tồn tại';
+            newUser.setCustomValidity('Tài khoản đã tồn tại');
+            userFeedback.innerHTML = 'Tài khoản đã tồn tại';
             form.classList.add('was-validated');
             console.log('Trùng');
             return false;
         }
+
+
     }
+
 
     // Nếu hợp lệ các pattern → return true
     return true;
@@ -78,6 +84,7 @@ function checkValidation(form) {
 // --------------------------------------------------------------------------
 document.querySelector('#btnThemNV').onclick = function (e) {
     e.preventDefault();
+
     if (!checkValidation(document.querySelector('#frmThemNV'))) return;
 
     let nhanVien = new NhanVien();
@@ -101,4 +108,32 @@ document.querySelector('#btnThemNV').onclick = function (e) {
     document.querySelector('#frmThemNV').classList.remove('was-validated');
     $('#myModal').modal('hide');
 }
+//------------------
+const pwInput = document.querySelector('#testPassword');
 
+pwInput.addEventListener('input', function () {
+    const value = pwInput.value;
+
+    // Kiểm tra điều kiện
+    const isLongEnough = value.length >= 6;
+    const hasUppercase = /[A-Z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+
+    // Cập nhật màu sắc và biểu tượng
+    updateRule('rule-length', isLongEnough);
+    updateRule('rule-uppercase', hasUppercase);
+    updateRule('rule-number', hasNumber);
+});
+
+function updateRule(id, isValid) {
+    const el = document.getElementById(id);
+    el.classList.remove('text-success', 'text-danger', 'text-muted');
+
+    if (isValid) {
+        el.classList.add('text-success');
+        el.innerHTML = '✔ ' + el.innerHTML.replace(/^[–✔❌]\s*/, '');
+    } else {
+        el.classList.add('text-danger');
+        el.innerHTML = '❌ ' + el.innerHTML.replace(/^[–✔❌]\s*/, '');
+    }
+}

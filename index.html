@@ -224,7 +224,7 @@
 								<input type="email" name="email" id="email" class="form-control input-sm fill-input"
 									placeholder="Email" required
 									pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$">
-								<div class="invalid-feedback">Email hợp lệ</div>
+								<div class="invalid-feedback">Email không hợp lệ</div>
 							</div>
 
 							<span class="sp-thongbao" id="tbEmail"></span>
@@ -235,10 +235,16 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
-								<input type="password" name="password" id="password"
+								<!-- <input type="password" name="password" id="password"
 									class="form-control input-sm fill-input" placeholder="Mật khẩu" required
 									pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{6,10}$">
-								<div class="sp-thongbao invalid-feedback" id="tbMatKhau">Pass không hợp lệ</div>
+								<div class="sp-thongbao invalid-feedback" id="tbMatKhau">Pass không hợp lệ</div> -->
+								<input type="password" id="testPassword" class="form-control" required />
+								<div id="pw-rules" class="mt-2 small">
+									<span id="rule-length" class="text-muted d-block">– Ít nhất 6 ký tự</span>
+									<span id="rule-uppercase" class="text-muted d-block">– Có chữ hoa (A–Z)</span>
+									<span id="rule-number" class="text-muted d-block">– Có số (0–9)</span>
+								</div>
 							</div>
 
 						</div>
@@ -292,12 +298,10 @@
 								<input type="number" name="gioLam" id="workingTime"
 									class="form-control input-sm fill-input" placeholder="Giờ làm" required min="80"
 									max="200">
-								<span class="sp-thongbao invalid-feedback" id="tbGiolam">Hãy nhập số giờ làm</span>
+								<span class="sp-thongbao invalid-feedback" id="tbGiolam">Vui lòng nhập số giờ làm</span>
 							</div>
 
 						</div>
-
-
 					</form>
 				</div>
 
@@ -313,11 +317,6 @@
 						<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 					</div>
 				</div>
-				<!-- <div class="modal-footer" id="modal-footer">
-					<button id="btnThemNV" type="button" class="btn btn-success">Thêm người dùng</button>
-					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
-					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-				</div> -->
 			</div>
 		</div>
 	</div>
@@ -340,7 +339,6 @@
 	</script>  -->
 
 	<!-- <script src="js/modal.js"></script> -->
-
 
 	<script type="text/javascript">
 		$(document).ready(function () {
