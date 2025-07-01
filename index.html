@@ -195,14 +195,11 @@
 									<span class="input-group-text"><i class="fa fa-user"></i></span>
 								</div>
 								<input type="text" name="tk" id="user" class="form-control input-sm fill-input"
-									aria-describedby="inputGroupPrepend" placeholder="Tài khoản" required
-									pattern="^[0-9]{4,6}$">
-								<div class="not-input d-none">Vui lòng nhập tài khoản</div>
-								<div class="user-exist d-none">Tài khoản đã tồn tại</div>
-								<div class="user-invalid d-none">Tài khoản là dãy số 4-6 ký tự</div>
-							</div>
+									aria-describedby="inputGroupPrepend" placeholder="Tài khoản">
 
-							<span class="sp-thongbao" id="tbTKNV"></span>
+							</div>
+							<div class="text-danger" id="tbTKNV"></div>
+
 						</div>
 
 						<div class="form-group">
@@ -211,10 +208,10 @@
 									<span class="input-group-text"><i class="fa fa-address-book"></i></span>
 								</div>
 								<input type="name" name="name" id="fullName" class="form-control input-sm fill-input"
-									placeholder="Họ và tên" required pattern="^[A-Za-zÀ-ỹ\s]+$">
+									placeholder="Họ và tên">
 								<div class="not-input d-none">Vui lòng nhập Họ tên</div>
 							</div>
-							<span class="sp-thongbao" id="tbTen"></span>
+							<div class="text-danger" id="tbTen"></div>
 						</div>
 
 						<div class="form-group">
@@ -223,12 +220,10 @@
 									<span class="input-group-text"><i class="fa fa-envelope"></i></span>
 								</div>
 								<input type="email" name="email" id="email" class="form-control input-sm fill-input"
-									placeholder="Email" required
-									pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$">
-								<div class="not-input d-none">Vui lòng nhập Email</div>
+									placeholder="Email">
 							</div>
 
-							<span class="sp-thongbao" id="tbEmail"></span>
+							<div class="text-danger" id="tbEmail"></div>
 						</div>
 
 						<div class="form-group">
@@ -236,19 +231,24 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
-								<!-- <input type="password" name="password" id="password"
-									class="form-control input-sm fill-input" placeholder="Mật khẩu" required
+								<input type="password" name="password" id="password"
+									class="form-control input-sm fill-input d-block" placeholder="Mật khẩu" required
 									pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{6,10}$">
-								<div class="sp-thongbao invalid-feedback" id="tbMatKhau">Pass không hợp lệ</div> -->
-								<input type="password" id="testPassword" class="form-control" required />
+
+								<!-- <input type="password" id="testPassword" class="form-control" required />
 								<div class="not-input d-none">Vui lòng nhập pass</div>
 								<div id="pw-rules" class="mt-2 small">
 									<span id="rule-length" class="text-muted d-block">– Ít nhất 6 ký tự</span>
 									<span id="rule-uppercase" class="text-muted d-block">– Có chữ hoa (A–Z)</span>
 									<span id="rule-number" class="text-muted d-block">– Có số (0–9)</span>
-								</div>
+								</div> -->
 							</div>
-
+							<div class="" id="tbMatKhau">
+								<span id="rule-length">- Mật khẩu từ 6 - 10 ký tự</span>
+								<span id="rule-uppercase">- Mật khẩu có ít nhất 1 chữ hoa</span>
+								<span id="rule-number">- Mật khẩu có ít nhất 1 số</span>
+								<span id="rule-symbol">- Mật khẩu có ít nhất 1 ký tự đặc biệt</span>
+							</div>
 						</div>
 
 						<div class="form-group">

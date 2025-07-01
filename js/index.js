@@ -57,28 +57,186 @@ document.querySelector('#btnXoa').onclick = function (e) {
 document.querySelector('#btnThem').addEventListener('click', () => {
     document.querySelector('#myModal .update').classList.add('d-none');
     document.querySelector('#btnThemNV').classList.remove('d-none');
-    
+
     document.querySelector('#frmThemNV').classList.remove('was-validated');
 });
 
 // ---------------------------- VALIDATION ----------------------------------
-function checkValidation(form) {
-    // Check not-input
-    if (!form.checkValidity()) {
-        let arrNotInput = document.querySelectorAll('form .not-input');
-        console.log(arrNotInput);
-        for (let input of arrNotInput) {
-            input.classList.remove('d-none');
-            input.classList.add('invalid-feedback');
+
+// function validUsername() {
+//     const userRegex = /^[0-9]{4,6}$/;
+//     let userInput = document.querySelector('#user').value;
+//     if (userInput == '') {
+//         document.querySelector('#tbTKNV').innerHTML = 'Vui lòng nhập tài khoản';
+//         return false;
+//     } else if (!userRegex.test(userInput)) {
+//         document.querySelector('#tbTKNV').innerHTML = 'Tài khoản là dãy số 4-6 ký tự';
+//         return false;
+//     } else {
+//         document.querySelector('#tbTKNV').innerHTML = '';
+//         return true;
+//     }
+// }
+
+// function validName() {
+//     const nameRegex = /^[A-Za-zÀ-ỹĐđ\s]+$/;
+//     let nameInput = document.querySelector('#fullName').value;
+//     let nameFeedback = document.querySelector('#tbTen');
+//     if (nameInput == '') {
+//         nameFeedback.innerHTML = 'Vui lòng nhập Họ tên';
+//         return false;
+//     } else if (!nameRegex.test(nameInput)) {
+//         nameFeedback.innerHTML = 'Họ tên không hợp lệ';
+//         return false;
+//     } else {
+//         nameFeedback.innerHTML = '';
+//         return true;
+//     }
+// }
+// function validEmail() {
+//     const emailRegex = /^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+//     let emailInput = document.querySelector('#email').value;
+//     let emailFeedback = document.querySelector('#tbEmail');
+//     if (emailInput == '') {
+//         emailFeedback.innerHTML = 'Vui lòng nhập Email';
+//         return false;
+//     } else if (!emailRegex.test(emailInput)) {
+//         emailFeedback.innerHTML = 'Email không hợp lệ';
+//         return false;
+//     } else {
+//         emailFeedback.innerHTML = '';
+//         return true;
+//     }
+
+// }
+// --------------------- VALIDATION ALL INPUT --------------------
+function checkValidation(direct) {
+    switch (direct) {
+        case "user": {
+            const userRegex = /^[0-9]{4,6}$/;
+            let userInput = document.querySelector('#user').value;
+            if (userInput == '') {
+                document.querySelector('#tbTKNV').innerHTML = 'Vui lòng nhập tài khoản';
+                return false;
+            } else if (!userRegex.test(userInput)) {
+                document.querySelector('#tbTKNV').innerHTML = 'Tài khoản là dãy số 4-6 ký tự';
+                return false;
+            } else {
+                document.querySelector('#tbTKNV').innerHTML = '';
+                return true;
+            }
         }
-        form.classList.add('was-validated');
-        return false;
+
+        case "fullName": {
+            const nameRegex = /^[A-Za-zÀ-ỹĐđ\s]+$/;
+            let nameInput = document.querySelector('#fullName').value;
+            let nameFeedback = document.querySelector('#tbTen');
+            if (nameInput == '') {
+                nameFeedback.innerHTML = 'Vui lòng nhập Họ tên';
+                return false;
+            } else if (!nameRegex.test(nameInput)) {
+                nameFeedback.innerHTML = 'Họ tên không hợp lệ';
+                return false;
+            } else {
+                nameFeedback.innerHTML = '';
+                return true;
+            }
+        }
+
+        case "email": {
+            const emailRegex = /^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+            let emailInput = document.querySelector('#email').value;
+            let emailFeedback = document.querySelector('#tbEmail');
+            if (emailInput == '') {
+                emailFeedback.innerHTML = 'Vui lòng nhập Email';
+                return false;
+            } else if (!emailRegex.test(emailInput)) {
+                emailFeedback.innerHTML = 'Email không hợp lệ';
+                return false;
+            } else {
+                emailFeedback.innerHTML = '';
+                return true;
+            }
+        }
+        case "password":
+            let passwordInput = document.querySelector('#password').value;
+            const isLongRegex = (passwordInput.length >= 6) && (passwordInput.length <= 10);
+            const uppercaseRegex = /[A-Z]/.test(passwordInput);
+            const numberRegex = /[0-9]/.test(passwordInput);
+            const symbolRegex = /[^A-Za-z0-9\s]/.test(passwordInput);
+
+            updateRule('rule-length', isLongRegex);
+            updateRule('rule-uppercase', uppercaseRegex);
+            updateRule('rule-number', numberRegex);
+            updateRule('rule-symbol', symbolRegex);
+
+            function updateRule(id, isValid) {
+                let ruleFeedback = document.getElementById(id);
+                ruleFeedback.classList.remove('text-success', 'text-danger', 'text-muted');
+
+                if (isValid) {
+                    ruleFeedback.classList.add('text-success');
+                    ruleFeedback.innerHTML = '✔ ' + ruleFeedback.innerHTML.replace(/^[-✔❌]\s*/, '');
+                } else {
+                    ruleFeedback.classList.add('text-danger');
+                    ruleFeedback.innerHTML = '❌ ' + ruleFeedback.innerHTML.replace(/^[-✔❌]\s*/, '');
+                }
+            }
+            if (isLongRegex && uppercaseRegex && numberRegex && symbolRegex) {
+                return true;
+            } else return false;
+
+        case "date":
+            break;
+        case "salary":
+            break;
+        case "position":
+            break;
+        case "workingTime":
+            break;
     }
-    // Check user
-    
-    // Nếu hợp lệ mọi điều kiện, return true;
-    return true;
 }
+// ------------------------------------------------------------------
+
+let idInput = [];
+for (let tagInput of document.querySelectorAll('.fill-input')) {
+    idInput.push(tagInput.id);
+}
+console.log(idInput);
+idInput.forEach((value) => {
+    document.querySelector(`#${value}`).addEventListener('input', () => {
+        checkValidation(value);
+    })
+})
+
+// document.querySelector('#user').addEventListener('input', () => {
+//     validUsername();
+// });
+// document.querySelector('#fullName').addEventListener('input', () => {
+//     validName();
+// })
+// document.querySelector('#email').addEventListener('input', () => {
+//     validEmail();
+// })
+
+
+// function checkValidation(form) {
+//     // Check not-input
+//     if (!form.checkValidity()) {
+//         let arrNotInput = document.querySelectorAll('form .not-input');
+//         console.log(arrNotInput);
+//         for (let input of arrNotInput) {
+//             input.classList.remove('d-none');
+//             input.classList.add('invalid-feedback');
+//         }
+//         form.classList.add('was-validated');
+//         return false;
+//     }
+//     // Check user
+
+//     // Nếu hợp lệ mọi điều kiện, return true;
+//     return true;
+// }
 
 
 
@@ -137,33 +295,4 @@ document.querySelector('#btnThemNV').onclick = function (e) {
     document.querySelector('#frmThemNV').reset();
     document.querySelector('#frmThemNV').classList.remove('was-validated');
     $('#myModal').modal('hide');
-}
-//------------------
-const pwInput = document.querySelector('#testPassword');
-
-pwInput.addEventListener('input', function () {
-    const value = pwInput.value;
-
-    // Kiểm tra điều kiện
-    const isLongEnough = value.length >= 6;
-    const hasUppercase = /[A-Z]/.test(value);
-    const hasNumber = /[0-9]/.test(value);
-
-    // Cập nhật màu sắc và biểu tượng
-    updateRule('rule-length', isLongEnough);
-    updateRule('rule-uppercase', hasUppercase);
-    updateRule('rule-number', hasNumber);
-});
-
-function updateRule(id, isValid) {
-    const el = document.getElementById(id);
-    el.classList.remove('text-success', 'text-danger', 'text-muted');
-
-    if (isValid) {
-        el.classList.add('text-success');
-        el.innerHTML = '✔ ' + el.innerHTML.replace(/^[–✔❌]\s*/, '');
-    } else {
-        el.classList.add('text-danger');
-        el.innerHTML = '❌ ' + el.innerHTML.replace(/^[–✔❌]\s*/, '');
-    }
 }
