@@ -187,13 +187,42 @@ function checkValidation(direct) {
             } else return false;
 
         case "date":
-            break;
-        case "salary":
-            break;
+            return true;
+        case "salary": {
+            let salaryInput = document.querySelector('#salary').value;
+            let salaryFeedback = document.querySelector('#tbLuongCB');
+            if (salaryInput == '') {
+                salaryFeedback.innerHTML = 'Lương không được để trống';
+                return false;
+            } else if ((salaryInput < 1000000) || (salaryInput) > 20000000) {
+                salaryFeedback.innerHTML = 'Lương nằm trong khoảng 1.000.000đ - 20.000.000đ';
+                return false;
+            } else {
+                salaryFeedback.innerHTML = '';
+                return true;
+            }
+        }
         case "position":
-            break;
+            // if (document.querySelector('#position').value == '') {
+            //     document.querySelector('#tbChucVu').innerHTML = 'Vui lòng chọn chức vụ';
+            //     return false;
+            // } else return true;
+            return true;
         case "workingTime":
-            break;
+            let workTimeInput = document.querySelector('#workingTime').value;
+            let workTimeFeedback = document.querySelector('#tbGioLam');
+
+            if (workTimeInput == '') {
+                workTimeFeedback.innerHTML = 'Ko lẽ ko đi làm?';
+                return false;
+            } else if ((workTimeInput < 80) || (workTimeInput > 200)) {
+                workTimeFeedback.innerHTML = 'Số giờ làm trong tháng: 80 - 200 giờ';
+                return false;
+            } else {
+                workTimeFeedback.innerHTML = '';
+                return true;
+            }
+
     }
 }
 // ------------------------------------------------------------------
@@ -202,97 +231,54 @@ let idInput = [];
 for (let tagInput of document.querySelectorAll('.fill-input')) {
     idInput.push(tagInput.id);
 }
-console.log(idInput);
-idInput.forEach((value) => {
-    document.querySelector(`#${value}`).addEventListener('input', () => {
-        checkValidation(value);
+
+idInput.forEach((Id) => {
+    document.querySelector(`#${Id}`).addEventListener('input', () => {
+        checkValidation(Id);
     })
 })
 
-// document.querySelector('#user').addEventListener('input', () => {
-//     validUsername();
-// });
-// document.querySelector('#fullName').addEventListener('input', () => {
-//     validName();
-// })
-// document.querySelector('#email').addEventListener('input', () => {
-//     validEmail();
-// })
+function formValidation() {
+    let isValid = true;
+    let arrInput = document.querySelectorAll('.fill-input');
 
+    arrInput.forEach((input) => {
+        let check = checkValidation(input.id);
+        if (!check) {
+            isValid = false;
+        }
+    });
+    return isValid;
+}
 
-// function checkValidation(form) {
-//     // Check not-input
-//     if (!form.checkValidity()) {
-//         let arrNotInput = document.querySelectorAll('form .not-input');
-//         console.log(arrNotInput);
-//         for (let input of arrNotInput) {
-//             input.classList.remove('d-none');
-//             input.classList.add('invalid-feedback');
-//         }
-//         form.classList.add('was-validated');
-//         return false;
-//     }
-//     // Check user
-
-//     // Nếu hợp lệ mọi điều kiện, return true;
-//     return true;
-// }
-
-
-
-// function checkValidation(form) {
-//     let newUser = document.querySelector('#user');
-//     newUser.setCustomValidity('');
-
-//     if (!form.checkValidity()) {
-//         form.classList.add('was-validated'); // Nếu chưa hợp lệ khi bấm submit thì mới kích hoạt hiệu ứng xanh/đỏ theo Bootstrap
-//         return false;
-//     }
-//     // Check User
-//     let arrNhanVien = danhSachNV.arrNhanVien;
-//     let userFeedback = newUser.parentElement.querySelector('.invalid-feedback');
-
-//     userFeedback.innerHTML = 'Vui lòng nhập tài khoản';
-
-//     // let existUser = false;
-//     for (let oldUsers of arrNhanVien) {
-//         if (oldUsers.user == newUser.value) {
-//             newUser.setCustomValidity('Tài khoản đã tồn tại');
-//             userFeedback.innerHTML = 'Tài khoản đã tồn tại';
-//             form.classList.add('was-validated');
-//             console.log('Trùng');
-//             return false;
-//         }
-//     }
-//     // Nếu hợp lệ các pattern → return true
-//     return true;
-// }
 // --------------------------------------------------------------------------
 document.querySelector('#btnThemNV').onclick = function (e) {
     e.preventDefault();
 
-    if (!checkValidation(document.querySelector('#frmThemNV'))) return;
-    console.log(!checkValidation(document.querySelector('#frmThemNV')));
 
+    if (formValidation()) {
+        console.log(formValidation());
+        let nhanVien = new NhanVien();
+        let arrInput = document.querySelectorAll('.fill-input');
+        for (let tag of arrInput) {
+            let id = tag.id;
+            let value = tag.value;
+            nhanVien[id] = value;
+        }
+        nhanVien.totalSalary = nhanVien.calSalary();
+        nhanVien.rate = nhanVien.calRate();
 
-    let nhanVien = new NhanVien();
-    let arrInput = document.querySelectorAll('.fill-input');
-    for (let tag of arrInput) {
-        let id = tag.id;
-        let value = tag.value;
-        nhanVien[id] = value;
+        danhSachNV.themNhanVien(nhanVien);
+        danhSachNV.hienThiNhanVien();
+
+        //Lưu lại Local
+        danhSachNV.saveLocal();
+
+        //Reset lại form sau khi nhập, xóa class validated
+        document.querySelector('#frmThemNV').reset();
+        document.querySelector('#frmThemNV').classList.remove('was-validated');
+        $('#myModal').modal('hide');
+    } else {
+        console.log(formValidation());
     }
-    nhanVien.totalSalary = nhanVien.calSalary();
-    nhanVien.rate = nhanVien.calRate();
-
-    danhSachNV.themNhanVien(nhanVien);
-    danhSachNV.hienThiNhanVien();
-
-    //Lưu lại Local
-    danhSachNV.saveLocal();
-
-    //Reset lại form sau khi nhập, xóa class validated
-    document.querySelector('#frmThemNV').reset();
-    document.querySelector('#frmThemNV').classList.remove('was-validated');
-    $('#myModal').modal('hide');
 }

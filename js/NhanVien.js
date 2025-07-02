@@ -21,7 +21,6 @@ export class NhanVien {
                 break;
             default: heSo = 1;
         }
-        console.log(heSo)
         let tongLuong = heSo * luongCB;
         return tongLuong;
     }
@@ -55,7 +54,7 @@ export class QuanLyNV {
         for (let key in nvInaArrNhanVien) {
             nvInaArrNhanVien[key] = nhanVienUpdate[key];
         }
-        
+
     }
     saveLocal() {
         let saveStr = JSON.stringify(this.arrNhanVien);
